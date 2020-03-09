@@ -24,7 +24,7 @@ $(document).ready(function(){
     // 平均値を出して代入します。(平均をとりたい数の合計点数(sum) / 全体の個数)
     let average = sum / subject_points.length;
     $("#average_indicate").text(average);
-    // return subject_points;
+    return subject_points;
     // ヒント! 全体の個数はlengthメソッドを使って求めます。(lengthメソッド: 文字列の長さや配列の要素数などを取得するメソッド)
   };
   // 平均点数を取得し、取得した平均点数からランク分け("A", "B", "C", "D")をするロジックを作ります。
@@ -59,7 +59,7 @@ $(document).ready(function(){
     // let number = subject_points
     // console.log(number);
     // // 変数「number」に入力した教科の数を代入します。
-    // // let number = subject_scores.length;
+    // let number = subject_scores.length;
     // // // 変数「judge」に"合格"を代入しておきます。
     // let judge = "合格";
     // // 入力したそれぞれの教科の点数が60点よりも低いと変数「judge」に"不合格"を代入して「judge」を返します。
@@ -74,18 +74,28 @@ $(document).ready(function(){
       Number($('#english').val()),
       Number($('#mathematics').val()),
       Number($('#science').val()),
-      Number($('#society').val())
+      Number($('#society').val()),
       ];
-      let judge_param = document.getElementById('judge');
-      judge_param.textContent = "合格";
-      return "合格"
-      for(let i = 0; i < 5; i++){
-          if(subject_points[i] < 60){
-              judge_param.textContent = "不合格";
-              return "不合格"
-          };
-
-      };
+    let number = subject_points.length;
+    let judge = "合格";
+    for(let i =0; i<number; i++){
+      if(subject_points[i]< 60){
+        judge = "不合格";
+        break;
+      }
+    }
+    return judge;
+      // let judge_param = document.getElementById('judge');
+      // judge_param.textContent = "合格";
+      // return "合格"
+      // for(let i = 0; i < 5; i++){
+      //     if(subject_points[i] < 60){
+      //         judge_param.textContent = "不合格";
+      //         return "不合格"
+      //         break;
+      //     };
+      //
+      // };
 
     // ヒント! 「javascript 点数 合格 不合格 ロジック」で検索してみてください。
   };
@@ -98,6 +108,8 @@ $(document).ready(function(){
     // 「最終ジャッジ」(id="alert-indicate)ボタンを押したら「あなたの成績は${achievement}で${pass_or_failure}です」が出力される処理です。
     $('#declaration').append(`<label id="alert-indicate" class="alert alert-info">あなたの成績は${achievement}で${pass_or_failure}です</label>`);
   };
+  
+
   // [国語の点数,英語の点数,数学の点数,理科の点数,社会の点数]のいずれかの点数が変更された際に「function score_indicate()」を発火させる処理です。
   $('#national_language, #english, #mathematics, #science, #society').change(function() {
     score_indicate();
